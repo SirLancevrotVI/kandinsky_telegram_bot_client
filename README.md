@@ -1,2 +1,2 @@
-# Kandinsky Telegram Bot Client
-Telegram bot client for kandinsky text to image model made with python.
+# kandinnsky_telegram_bot_client
+Telegram bot client for kandinnsky text to image model made with python.
