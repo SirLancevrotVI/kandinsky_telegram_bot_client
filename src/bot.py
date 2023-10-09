@@ -22,6 +22,11 @@ def send_welcome(message):
 # set prompt
 @bot.message_handler(content_types=["text"])
 def func(message: Message):
+    """
+    Main action function
+    :param message: telebot.types.Message
+    :return:
+    """
     new_message = bot.send_message(chat_id=message.chat.id, text='Идет генерация изображения...')
     text_prompt: str = message.text
     generated_image = generate_img(text_prompt)
