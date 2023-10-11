@@ -4,8 +4,8 @@ build:
 
 # run --env-file .env
 run:
-	docker run --env-file .env kaninsky-bot:latest
+	docker run --env-file .env kandinsky-bot:latest
 
 # run as daemon
 run-d:
-	docker run -d --env-file .env kaninsky-bot:latest
+	docker run -d --env-file .env kandinsky-bot:latest
