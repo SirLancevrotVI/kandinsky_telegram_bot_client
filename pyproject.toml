@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.11"
 python-dotenv = "^1.0.0"
 replicate = "^0.15.4"
-telebot = "^0.0.5"
+pytelegrambotapi = "^4.14.0"
 
 
 [build-system]
