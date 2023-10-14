@@ -59,7 +59,7 @@ def send_welcome(message):
 
 # set prompt
 @bot.message_handler(content_types=["text"])
-def func(message: Message):
+def generation_handler(message: Message):
     """
     Main action function
     :param message: telebot.types.Message
