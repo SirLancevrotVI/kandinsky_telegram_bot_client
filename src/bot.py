@@ -69,12 +69,18 @@ def func(message: Message):
     args = parse_telegram_args(message.text, command_arguments)
 
     new_message = bot.send_message(
-        chat_id=message.chat.id, text="Идет генерация изображения..."
+        chat_id=message.chat.id,
+        text="Идет генерация изображения...",
+        reply_to_message_id=message.message_id,
     )
     generated_image = generate_img(text_prompt=main_message, **args)
 
     bot.delete_message(chat_id=new_message.chat.id, message_id=new_message.message_id)
-    bot.send_photo(chat_id=message.chat.id, photo=generated_image[0])
+    bot.send_photo(
+        chat_id=message.chat.id,
+        photo=generated_image[0],
+        reply_to_message_id=message.message_id,
+    )
 
 
 if __name__ == "__main__":
