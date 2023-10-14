@@ -3,22 +3,17 @@ import re
 import telebot
 from telebot.types import Message
 
-from dependencies import TELEGRAM_BOT_API
+from dependencies import TELEGRAM_BOT_API, ARGUMENT_REGEXP, COMMAND_ARGUMENTS
 from kandinsky import generate_img
 
 bot = telebot.TeleBot(TELEGRAM_BOT_API)
-
-command_arguments = {
-    "negative": r"(-n|—n|--neg|--negative|—neg|—negative)",
-    "seed": r"(-s|--seed|—seed|—s)",
-}
 
 
 def clear_telegram_message(plain_text: str, arg_dict: dict[str, str]):
     main_message = plain_text
 
     for arg_field in arg_dict.values():
-        arg_pattern = f"{arg_field}\s+([^\\s]+(\s+[^\\s]+)*)"
+        arg_pattern = ARGUMENT_REGEXP.format(arg_field=arg_field)
         main_message = re.sub(arg_pattern, "", main_message)
 
     # Remove leading/trailing whitespace from the main message
@@ -31,7 +26,7 @@ def parse_telegram_args(plain_text: str, arg_dict: dict[str, str]):
     args = {}
 
     for arg_name, arg_field in arg_dict.items():
-        arg_pattern = f"{arg_field}\s+([^\\s]+(\s+[^\\s]+)*)"
+        arg_pattern = ARGUMENT_REGEXP.format(arg_field=arg_field)
         matches = re.findall(arg_pattern, plain_text)
         if matches:
             args[arg_name] = matches[-1][1]
@@ -65,8 +60,8 @@ def generation_handler(message: Message):
     :param message: telebot.types.Message
     :return:
     """
-    main_message = clear_telegram_message(message.text, command_arguments)
-    args = parse_telegram_args(message.text, command_arguments)
+    main_message = clear_telegram_message(message.text, COMMAND_ARGUMENTS)
+    args = parse_telegram_args(message.text, COMMAND_ARGUMENTS)
 
     new_message = bot.send_message(
         chat_id=message.chat.id,
