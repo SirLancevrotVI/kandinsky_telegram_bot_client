@@ -36,7 +36,7 @@ def parse_telegram_args(plain_text: str, arg_dict: dict[str, str]):
 
 
 # Handle '/start' and '/help'
-@bot.message_handler(commands=["help", "start"])
+@bot.message_handler(commands=["start"])
 def send_welcome(message):
     """
     Send welcome message
@@ -46,11 +46,24 @@ def send_welcome(message):
     bot.reply_to(
         message,
         text="Для того, чтобы сгенерировать изображение,"
-        " отправьте в следующем сообщении ключевые слова через запятую.".format(
+             " отправьте в следующем сообщении ключевые слова через запятую.".format(
             message.from_user
         ),
     )
 
+@bot.message_handler(commands=["help"])
+def send_faq(message):
+    bot.reply_to(
+        message,
+        text="Для того, чтобы сгенерировать изображение,"
+             " отправьте в следующем сообщении ключевые слова через запятую.\n\n"
+             "Аргументы запроса:\n"
+             "• negative: -n текст промта\n• seed: -s текст\n• num_inference_steps: -i кол-во шагов\n"
+             "• num_inference_steps_prior: -r кол-во шагов\n• width: -w ширина в пикселях\n• height: -h высота в пикселях\n\n"
+             "Пример:\na black sheep with white god ray and black background -n black dog -r 50 -w 640 -h 480".format(
+            message.from_user
+        ),
+    )
 
 # set prompt
 @bot.message_handler(content_types=["text"])
